@@ -1,0 +1,11 @@
+#!/bin/bash
+sleep 0.4
+xdotool key --clearmodifiers ctrl+c
+sleep 0.3
+
+QUERY=$(xclip -o -selection clipboard 2>/dev/null)
+
+if [ -n "$QUERY" ]; then
+    ENCODED=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$QUERY")
+    xdg-open "https://www.google.com/search?q=${ENCODED}"
+fi
